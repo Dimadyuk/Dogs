@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.jetbrainsKotlinKapt)
     alias(libs.plugins.navigation.safeargs.kotlin)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -32,8 +33,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dataBinding {
-        isEnabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
@@ -42,6 +43,7 @@ dependencies {
     implementation(libs.lifecycleExtensions)
 
     implementation(libs.room.runtime)
+    implementation(libs.androidx.swiperefreshlayout)
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
 
@@ -60,6 +62,8 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.palette)
     implementation(libs.preference)
+
+    implementation(libs.design)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
