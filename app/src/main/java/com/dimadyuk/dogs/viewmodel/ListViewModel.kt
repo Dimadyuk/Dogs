@@ -3,44 +3,48 @@ package com.dimadyuk.dogs.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dimadyuk.dogs.model.DogBreed
+import com.dimadyuk.dogs.model.DogsAPIService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 class ListViewModel : ViewModel() {
+    private val dogsService = DogsAPIService()
+    private val disposable = CompositeDisposable()
+
     val dogs = MutableLiveData<List<DogBreed>>()
     val dogsLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
     fun refresh() {
-        val dog1 = DogBreed(
-            "1",
-            "Corgi",
-            "12 years",
-            "Herding",
-            "Sheep",
-            "Bold, Friendly, Outgoing",
-            "https://images.dog.ceo/breeds/corgi-cardigan/n02113186_10116.jpg"
-        )
-        val dog2 = DogBreed(
-            "2",
-            "Labrador",
-            "12 years",
-            "Sporting",
-            "Water",
-            "Kind, Outgoing, Agile",
-            "https://images.dog.ceo/breeds/labrador/n02099712_1012.jpg"
-        )
-        val dog3 = DogBreed(
-            "3",
-            "Husky",
-            "12 years",
-            "Working",
-            "Sled",
-            "Outgoing, Alert, Gentle",
-            "https://images.dog.ceo/breeds/husky/n02110185_1011.jpg"
-        )
-        val dogList = arrayListOf(dog1, dog2, dog3)
+        fetchFromRemote()
+    }
 
-        dogs.value = dogList
-        dogsLoadError.value = false
-        loading.value = false
+    private fun fetchFromRemote() {
+        loading.value = true
+        disposable.add(
+            dogsService.getDogs()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<DogBreed>>() {
+                    override fun onSuccess(list: List<DogBreed>) {
+                        dogs.value = list
+                        dogsLoadError.value = false
+                        loading.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        dogsLoadError.value = true
+                        loading.value = false
+                        e.printStackTrace()
+                    }
+                })
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 }
