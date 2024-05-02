@@ -3,11 +3,14 @@ package com.dimadyuk.dogs.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.dimadyuk.dogs.R
 import com.dimadyuk.dogs.model.DogBreed
+import com.dimadyuk.dogs.util.getProgressDrawable
+import com.dimadyuk.dogs.util.loadImage
 
 class DogsListAdapter(val dogsList: ArrayList<DogBreed>) : RecyclerView.Adapter<DogsListAdapter.DogViewHolder>() {
     class DogViewHolder(var view: View) : RecyclerView.ViewHolder(view)
@@ -31,9 +34,11 @@ class DogsListAdapter(val dogsList: ArrayList<DogBreed>) : RecyclerView.Adapter<
 
         val dogNameTextView: TextView = holder.view.findViewById(R.id.dogName)
         val lifespanTextView: TextView = holder.view.findViewById(R.id.lifespan)
+        val dogImage: ImageView = holder.view.findViewById(R.id.dogImage)
 
         dogNameTextView.text = dog.dogBread
         lifespanTextView.text = dog.lifeSpan
+        dogImage.loadImage(dog.imageUrl, getProgressDrawable(holder.view.context))
 
         holder.view.setOnClickListener { view ->
             dog.breedId?.let {

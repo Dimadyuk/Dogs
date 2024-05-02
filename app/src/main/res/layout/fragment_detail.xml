@@ -63,7 +63,7 @@
             android:layout_below="@+id/dogTemperament"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
-            android:text="Dog lifespan"></TextView>
+            android:text="Dog lifespan" />
 
     </RelativeLayout>
 </layout>

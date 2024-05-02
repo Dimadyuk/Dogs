@@ -67,5 +67,4 @@ class ListFragment : Fragment() {
             }
         }
     }
-
 }
