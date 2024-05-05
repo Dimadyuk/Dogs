@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dimadyuk.dogs.databinding.FragmentDetailBinding
+import com.dimadyuk.dogs.util.getProgressDrawable
+import com.dimadyuk.dogs.util.loadImage
 import com.dimadyuk.dogs.viewmodel.DetailsViewModel
 
 class DetailFragment : Fragment() {
@@ -29,21 +31,24 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
-        viewModel.fetch()
 
         arguments?.let {
             dogUuid = DetailFragmentArgs.fromBundle(it).dogUuid
+            viewModel.fetch(dogUuid)
         }
         observeViewModel()
     }
 
     private fun observeViewModel() {
         viewModel.dogLiveData.observe(viewLifecycleOwner) { dog ->
-            dog?.let {
-                binding.dogName.text = dog.dogBread
-                binding.dogPurpose.text = dog.breedFor
-                binding.dogTemperament.text = dog.temperament
-                binding.dogLifespan.text = dog.lifeSpan
+            with(binding) {
+                dog?.let {
+                    dogName.text = dog.dogBread
+                    dogPurpose.text = dog.breedFor
+                    dogTemperament.text = dog.temperament
+                    dogLifespan.text = dog.lifeSpan
+                    dogImage.loadImage(dog.imageUrl, getProgressDrawable(dogImage.context))
+                }
             }
         }
     }
