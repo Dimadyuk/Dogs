@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dimadyuk.dogs.databinding.FragmentDetailBinding
-import com.dimadyuk.dogs.util.getProgressDrawable
-import com.dimadyuk.dogs.util.loadImage
 import com.dimadyuk.dogs.viewmodel.DetailsViewModel
 
 class DetailFragment : Fragment() {
@@ -40,14 +38,15 @@ class DetailFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.dogLiveData.observe(viewLifecycleOwner) { dog ->
+        viewModel.dogLiveData.observe(viewLifecycleOwner) { dogBreed ->
             with(binding) {
-                dog?.let {
-                    dogName.text = dog.dogBread
-                    dogPurpose.text = dog.breedFor
-                    dogTemperament.text = dog.temperament
-                    dogLifespan.text = dog.lifeSpan
-                    dogImage.loadImage(dog.imageUrl, getProgressDrawable(dogImage.context))
+                dogBreed?.let {
+                    dog = dogBreed
+//                    dogName.text = dogBreed.dogBread
+//                    dogPurpose.text = dogBreed.breedFor
+//                    dogTemperament.text = dogBreed.temperament
+//                    dogLifespan.text = dogBreed.lifeSpan
+//                    dogImage.loadImage(dogBreed.imageUrl, getProgressDrawable(dogImage.context))
                 }
             }
         }
