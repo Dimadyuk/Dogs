@@ -1,11 +1,14 @@
 package com.dimadyuk.dogs.viewmodel
 
 import android.app.Application
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import com.dimadyuk.dogs.model.DogBreed
 import com.dimadyuk.dogs.model.DogDatabase
 import com.dimadyuk.dogs.model.DogsAPIService
+import com.dimadyuk.dogs.util.NotificationsHelper
 import com.dimadyuk.dogs.util.SharedPrefsHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -52,9 +55,11 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<DogBreed>>() {
+                    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
                     override fun onSuccess(list: List<DogBreed>) {
                         storeDogsLocally(list)
                         Toast.makeText(getApplication(), "Dogs retrieved from endpoint", Toast.LENGTH_SHORT).show()
+                        NotificationsHelper(getApplication()).createNotification()
                     }
 
                     override fun onError(e: Throwable) {

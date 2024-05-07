@@ -7,10 +7,14 @@
         <variable
             name="dog"
             type="com.dimadyuk.dogs.model.DogBreed" />
+        <variable
+            name="palette"
+            type="com.dimadyuk.dogs.model.DogPalette" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@{palette.color}"
         android:layout_marginTop="?attr/actionBarSize"
         tools:context=".view.DetailFragment">
 
