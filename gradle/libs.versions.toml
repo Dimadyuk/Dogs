@@ -58,7 +58,6 @@ palette = { group = "com.android.support", name = "palette-v7", version.ref = "s
 preference = { group = "androidx.preference", name = "preference", version.ref = "preferencesVersion" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
-
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
