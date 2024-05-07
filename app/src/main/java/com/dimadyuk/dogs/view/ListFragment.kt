@@ -2,14 +2,20 @@ package com.dimadyuk.dogs.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dimadyuk.dogs.R
 import com.dimadyuk.dogs.databinding.FragmentListBinding
 import com.dimadyuk.dogs.viewmodel.ListViewModel
 
+@Suppress("DEPRECATION")
 class ListFragment : Fragment() {
 
     private lateinit var viewModel: ListViewModel
@@ -22,10 +28,30 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.list_menu, menu)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.actionSettings -> {
+                view?.let {
+                    val action = ListFragmentDirections.actionSettings()
+                    it.findNavController().navigate(action)
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ListViewModel::class.java]
