@@ -16,8 +16,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -64,6 +64,9 @@ dependencies {
     implementation(libs.preference)
 
     implementation(libs.design)
+
+    implementation(libs.firebase.core)
+    implementation(libs.multidex)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

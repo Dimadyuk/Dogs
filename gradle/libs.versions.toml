@@ -20,6 +20,8 @@ coroutinesVersion = "1.7.1"
 supportVersion = "28.0.0"
 navigationVersion = "2.7.7"
 swiperefreshlayout = "1.1.0"
+firebaseCoreVersion = "21.1.1"
+multidexVersion = "1.0.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,11 +55,15 @@ rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxJav
 rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxJavaVersion" }
 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
+
 palette = { group = "com.android.support", name = "palette-v7", version.ref = "supportVersion" }
 
 preference = { group = "androidx.preference", name = "preference", version.ref = "preferencesVersion" }
+
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
+firebase-core = { group = "com.google.firebase", name = "firebase-core", version.ref = "firebaseCoreVersion" }
+multidex = { group = "com.android.support", name = "multidex", version.ref  = "multidexVersion" }
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
